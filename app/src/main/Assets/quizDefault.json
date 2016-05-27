@@ -1,0 +1,254 @@
+  {
+    "Teacher":"Anil",
+    "Email":"avanilkumar@gmail.com",
+    "Subjects":[
+      "Geography",
+      "History",
+      "Physics",
+      "Biology",
+      "Maths"
+      ],
+      "Geography":[
+          {
+            "Question":"India is ______ largest country in the world",
+            "Opt0":"21",
+            "Opt1":"7",
+            "Opt2":"15",
+            "Opt3":"13",
+            "Answer":"seventh",
+            "Opt":1,
+            "Hint":"India is in Top ten"
+          },
+        {
+          "Question":"What is the capital of Tamil Nadu",
+          "Opt0":"Chennai",
+          "Opt1":"Delhi",
+          "Opt2":"Tripura",
+          "Opt3":"Bengaluru",
+          "Answer":"Chennai is capital city of Tamil Nadu",
+          "Opt":0,
+          "Hint":"Check for tamil name in options"
+        },
+        {
+          "Question":"Which country is also called as Sub-continent",
+          "Opt0":"Sweeden",
+          "Opt1":"USA",
+          "Opt2":"Uganda",
+          "Opt3":"India",
+          "Answer":"India is called sub-continent due to varied cultures,terrain etc...",
+          "Opt":3,
+          "Hint":"The country is in Asia"
+        },
+        {
+          "Question":"Which is the largest ocean",
+          "Opt0":"Atlantic",
+          "Opt1":"Indian",
+          "Opt2":"Pacific",
+          "Opt3":"None of the above",
+          "Answer":"Pacific ocean",
+          "Opt":2,
+          "Hint":"There is airlines on this oceans name"
+        },
+        {
+          "Question":"Which is the biggest continent in the world",
+          "Opt0":"Asia",
+          "Opt1":"South America",
+          "Opt2":"Europe",
+          "Opt3":"Australia",
+          "Answer":"Asia",
+          "Opt":0,
+          "Hint":"India is located in largest continent"
+        }
+
+        ],
+        "History":[
+          {
+            "Question":"Who is the first Prime Minister of India",
+            "Opt0":"Vajpeye",
+            "Opt1":"Manmohan Singh",
+            "Opt2":"Rajendra Prasad",
+            "Opt3":"Jawaharlal Nehru",
+            "Answer":"The first Prime minister of India was Jawaharlal Nehru",
+            "Opt":3,
+            "Hint":"His birthday is also childrens day"
+          },
+          {
+            "Question":"Who is called Iron man of India",
+            "Opt0":"Sardar Vallabhai patel",
+            "Opt1":"Bhagat Singh",
+            "Opt2":"Veera Pandya Kattabommana",
+            "Opt3":"None of the above",
+            "Answer":"Sardar Vallabhai patel",
+            "Opt":0,
+            "Hint":"Belongs to Gujarat"
+          },
+          {
+            "Question":"In which year India got independence",
+            "Opt0":"1947",
+            "Opt1":"2012",
+            "Opt2":"1856",
+            "Opt3":"1701",
+            "Answer":"Sardar Vallabhai patel",
+            "Opt":0,
+            "Hint":"Previuos century"
+          },
+          {
+            "Question":"Tajmahal was built by ?",
+            "Opt0":"Akbar",
+            "Opt1":"Babur",
+            "Opt2":"Humayun",
+            "Opt3":"Shahjahan",
+            "Answer":"Shahjahan",
+            "Opt":3,
+            "Hint":"He should be husband of Mumtaj"
+          },
+          {
+            "Question":"Who is called as father of our nation",
+            "Opt0":"Bhagat Singh",
+            "Opt1":"Chandrasekhar Azad",
+            "Opt2":"M K Gandhi",
+            "Opt3":"C V Raman",
+            "Answer":"M K Gandhi",
+            "Opt":2,
+            "Hint":"He believed in Non Violence is the way to get independence"
+          }
+          ],
+        "Physics":[
+          {
+            "Question":"E = ?",
+            "Opt0":"mc",
+            "Opt1":"m/c",
+            "Opt2":"m^2c",
+            "Opt3":"mc^2",
+            "Answer":"mc^2",
+            "Opt":3,
+            "Hint":"Huge energy from mass"
+          },
+          {
+            "Question":"Newtons 3rd law of motion is:",
+            "Opt0":"Mass contnues its motion",
+            "Opt1":"For every action there is equal and opposite reaction",
+            "Opt2":"Mass tries to stay still",
+            "Opt3":"None of the above",
+            "Answer":"For every action there is equal and opposite reaction",
+            "Opt":1,
+            "Hint":"You hit me, I hit you...;-)"
+          },
+          {
+            "Question":"Newtons 3rd law of motion is:",
+            "Opt0":"Mass continues its motion",
+            "Opt1":"For every action there is equal and opposite reaction",
+            "Opt2":"Mass tries to stay still",
+            "Opt3":"None of the above",
+            "Answer":"For every action there is equal and opposite reaction",
+            "Opt":1,
+            "Hint":"You hit me, I hit you...;-)"
+          },
+          {
+            "Question":"An orbital relates to ________",
+            "Opt0":"energy level",
+            "Opt1":"mass",
+            "Opt2":"sub energy level",
+            "Opt3":"None of the above",
+            "Answer":"sub energy level",
+            "Opt":2,
+            "Hint":"Relates to accurate electron position"
+          },
+          {
+            "Question":"Heaviest sub atomic particle is?",
+            "Opt0":"Neutron",
+            "Opt1":"Electron",
+            "Opt2":"Positron",
+            "Opt3":"Proton",
+            "Answer":"Neutron",
+            "Opt":0,
+            "Hint":"It has no charge"
+          }
+          ],
+          "Biology":[
+          {
+            "Question":"_____ gives green colour to leafs",
+            "Opt0":"pesticides",
+            "Opt1":"Haemoglobin",
+            "Opt2":"Bile",
+            "Opt3":"Chlorophyll",
+            "Answer":"Chlorophyll",
+            "Opt":3,
+            "Hint":"Check the one that is present in plants"
+          },
+            {
+              "Question":"Orthopedic is related to ___________  ",
+              "Opt0":"teeth",
+              "Opt1":"bones",
+              "Opt2":"stomach",
+              "Opt3":"ear",
+              "Answer":"Bones",
+              "Opt":1,
+              "Hint":"hard parts of body"
+            },
+            {
+              "Question":"Human beings belong to ",
+              "Opt0":"mammals",
+              "Opt1":"birds",
+              "Opt2":"reptiles",
+              "Opt3":"microbes",
+              "Answer":"mamals",
+              "Opt":0,
+              "Hint":"In mamal parent take care of children"
+            },
+            {
+              "Question":"Fish breathes through _____",
+              "Opt0":"Nostrils",
+              "Opt1":"gills",
+              "Opt2":"lungs",
+              "Opt3":"bones",
+              "Answer":"gills",
+              "Opt":1,
+              "Hint":"check for the parts assosciated with fish"
+            },
+            {
+              "Question":"In the evolution of life. First the life was ______ in nature",
+              "Opt0":"reptiles",
+              "Opt1":"mammals",
+              "Opt2":"aquatic",
+              "Opt3":"terrestrial",
+              "Answer":"Aquatic",
+              "Opt":2,
+              "Hint":"Initially earth was hot"
+            }
+          ],
+          "Maths":[
+          {
+            "Question":"(a+b)^2 = ?",
+            "Opt0":"a^2 + b^2",
+            "Opt1":"2a + 2b",
+            "Opt2":"a^2+b^2+2ab",
+            "Opt3":"Cant be derived",
+            "Answer":"a^2+b^2+2ab",
+            "Opt":2,
+            "Hint":"try multiplying a+b with itself."
+          },
+            {
+              "Question":"Sum of 2 sides of a triangle is _______ than the other side",
+              "Opt0":"greater",
+              "Opt1":"lesser",
+              "Opt2":"equal",
+              "Opt3":"Cant be derived",
+              "Answer":"Sum of 2 sides of a triangle is greater than the other side",
+              "Opt":2,
+              "Hint":"try extend/cut a triangle into right angled triangle and apply pythagorus theorum"
+            },
+            {
+              "Question":"dy/dx indicates",
+              "Opt0":"area",
+              "Opt1":"perimeter",
+              "Opt2":"slope",
+              "Opt3":"Cant be derived",
+              "Answer":"derivation of an equation indicates its slope",
+              "Opt":2,
+              "Hint":"what does y2-y1 / x2-x1  indicate?"
+            }
+
+          ]
+
+  }
