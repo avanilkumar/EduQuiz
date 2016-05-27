@@ -141,7 +141,7 @@
             "Opt2":"m^a",
             "Opt3":"a/m",
             "Answer":"ma",
-            "Opt":1,
+            "Opt":0,
             "Hint":"F proportional to both mass and acceleration"
           },
           {
