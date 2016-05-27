@@ -1,0 +1,33 @@
+App Name: EduQuiz
+App Type: Quiz application
+Idea: 
+	The motto of the appp is to do exactly "5 ways to _______" .
+	The app is educational and can teach any thing targeting any user.
+	There are various modes of educating. Here this app chooses quiz as a medium to educate.
+	The education process is....
+	  - Ask a question
+	  - Provide choices
+	  - Provide hint so as to think in right direction.
+	  - Provide the result current/wrong and Answer
+	  - There is no score as the app emphasises on educating rather than on evaluating.
+Actors:
+     Teacher: The person who would like to teach certain subjects
+	 Students: Who want to learn the subjects.
+
+How it works:
+	1) The teacher who wants to teach certain subjects shall make a JSON file with fiels of:
+		- Name
+		- email
+		- Subjects
+		- For each subject several items shall be provided which contains,
+			- Question
+			- 4 choices
+			- Hint
+			- Answer
+	
+	2) The teacher can share the JSON file to students through any medium of standard apps.
+	3) The student shall use this app and open the JSON file. This app shall read the file and provide UI.
+	4) The student will use this app and play the quiz.
+	5) The student can mail to teacher for feedback, doubts etc....
+Default:
+  By default the app shall teach Geography, History, Physics, Biology, Maths to school students.
