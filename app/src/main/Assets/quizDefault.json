@@ -135,14 +135,14 @@
             "Hint":"You hit me, I hit you...;-)"
           },
           {
-            "Question":"Newtons 3rd law of motion is:",
-            "Opt0":"Mass continues its motion",
-            "Opt1":"For every action there is equal and opposite reaction",
-            "Opt2":"Mass tries to stay still",
-            "Opt3":"None of the above",
-            "Answer":"For every action there is equal and opposite reaction",
+            "Question":"F = ?",
+            "Opt0":"ma",
+            "Opt1":"m/a",
+            "Opt2":"m^a",
+            "Opt3":"a/m",
+            "Answer":"ma",
             "Opt":1,
-            "Hint":"You hit me, I hit you...;-)"
+            "Hint":"F proportional to both mass and acceleration"
           },
           {
             "Question":"An orbital relates to ________",
