@@ -235,7 +235,7 @@
               "Opt2":"equal",
               "Opt3":"Cant be derived",
               "Answer":"Sum of 2 sides of a triangle is greater than the other side",
-              "Opt":2,
+              "Opt":0,
               "Hint":"try extend/cut a triangle into right angled triangle and apply pythagorus theorum"
             },
             {
