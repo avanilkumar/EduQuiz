@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
     private String mSubjectStr;
     //private int mSubjectLen;
     private int mCurQuestion;
+    private int mCurScore;
     //public String mCurHint;
     //private String mCurAnswer;
     //private int mCurOpt;
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity
             inputStream.read(buffer);
             //mQuizStr = new String(buffer, "UTF-8");
             mCurQuestion = 0;
+            mCurScore = 0;
             mSubjectStr = "";
             mData.loadString(new String(buffer, "UTF-8"));
 
@@ -221,12 +223,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.setBackgroundResource(R.drawable.bgimage);
 
         if(savedInstanceState==null){
+            mCurScore = 0;
             mCurQuestion=0;
             defaultQuizLoad();
             mSubjectStr = mData.getSubjects()[0];
             ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
         }else{
             mCurQuestion = savedInstanceState.getInt("questionNum");//outState.putInt("questionNum",mCurQuestion);
+            mCurScore = savedInstanceState.getInt("curScore");
             //mCurOpt = savedInstanceState.getInt(getString(R.string.Opt));//outState.putInt(getString(R.string.Opt),mCurOpt);
             //mQuizStr = savedInstanceState.getString("file");//outState.putString("file",mQuizStr);
             mSubjectStr = savedInstanceState.getString("subject");//outState.putString("subject",mSubjectStr);
@@ -282,6 +286,7 @@ public class MainActivity extends AppCompatActivity
                     mData = new JSONReader();
                     mData.loadFile(FilePath);
                     mCurQuestion = 0;
+                    mCurScore = 0;
                     mSubjectStr = mData.getSubjects()[0];
                     ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText("OK");
                     updateNavigationMenu();
@@ -308,6 +313,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.reset) {
             ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText("OK");
             mCurQuestion = 0;
+            mCurScore = 0;
             setQuestionScreen();
             return true;
         }else if(id == R.id.open){
@@ -345,7 +351,8 @@ public class MainActivity extends AppCompatActivity
 
             mSubjectStr = item.getTitle().toString();
             mCurQuestion = 0;
-            ((Button) findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText("OK");
+            mCurScore = 0;
+            ((Button) findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getString(R.string.ok));
             setQuestionScreen();
 
         }
@@ -405,6 +412,7 @@ public class MainActivity extends AppCompatActivity
         String str = new String(((Button)findViewById(R.id.okNxt)).getText().toString());
         outState.putString("okNxtButton",str);
         outState.putInt("questionNum",mCurQuestion);
+        outState.putInt("curScore",mCurScore);
         Bundle dat = mData.createBundle();
         outState.putBundle("dat",dat);
 
@@ -428,6 +436,7 @@ public class MainActivity extends AppCompatActivity
                 b.setText(getString(R.string.Next));
                 int opt = mData.getAnswerOpt(mSubjectStr,mCurQuestion);
                 if(opts[opt]==id){//correct
+                    mCurScore++;
                     bgImge.setImageResource(R.drawable.correct);
                     bgImge.setAlpha(1.0f);
                     bgImge.setAnimation(animation);
@@ -447,10 +456,6 @@ public class MainActivity extends AppCompatActivity
                     bgImge.setAnimation(animation);
                     //RadioButton radio = (RadioButton) findViewById(R.id.questionScreen).findViewById(opts[opt]);
                     //radio.setChecked(true);
-
-
-
-
                 }
             }else if(b.getText().toString().equals(getString(R.string.Next))){//next
 
@@ -463,12 +468,12 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(this,getString(R.string.done), Toast.LENGTH_LONG).show();
                 }
            }else{//reset
+               // Toast.makeText(this,"score: "+mCurScore,Toast.LENGTH_LONG).show();
                 mCurQuestion = 0;
+                mCurScore = 0;
                 setQuestionScreen();
                 ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
             }
-
-
     }
 
 
