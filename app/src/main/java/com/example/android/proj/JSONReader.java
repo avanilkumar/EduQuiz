@@ -50,7 +50,6 @@ public class JSONReader {
                     qaArray[j].mQuestion = jsonArray.getJSONObject(j).getString("Question");
                     qaArray[j].mHint = jsonArray.getJSONObject(j).getString("Hint");
                     qaArray[j].mOpt = jsonArray.getJSONObject(j).getInt("Opt");
-                    //qaArray[j].mOptions = new String[4];
                     qaArray[j].mOptions[0] = jsonArray.getJSONObject(j).getString("Opt0");
                     qaArray[j].mOptions[1] = jsonArray.getJSONObject(j).getString("Opt1");
                     qaArray[j].mOptions[2] = jsonArray.getJSONObject(j).getString("Opt2");
