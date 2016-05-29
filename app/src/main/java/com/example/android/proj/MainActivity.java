@@ -232,6 +232,9 @@ public class MainActivity extends AppCompatActivity
             mSubjectStr = savedInstanceState.getString("subject");//outState.putString("subject",mSubjectStr);
             String str = savedInstanceState.getString("okNxtButton");
             ((Button)findViewById(R.id.okNxt)).setText(str);
+            if(str.equals(getString(R.string.Next))){
+                ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText(mData.getAnswer(mSubjectStr,mCurQuestion));
+            }
             mData = new JSONReader();
             mData.loadBundle(savedInstanceState.getBundle("dat"));
         }
@@ -428,12 +431,24 @@ public class MainActivity extends AppCompatActivity
                     bgImge.setImageResource(R.drawable.correct);
                     bgImge.setAlpha(1.0f);
                     bgImge.setAnimation(animation);
+                    if(mCurQuestion+1 < mData.getQuestionCnt(mSubjectStr)){
+                        mCurQuestion++;
+                        setQuestionScreen();
+
+                    }else{//last question
+                        b.setText(getString(R.string.RESET));
+                        Toast.makeText(this,getString(R.string.done), Toast.LENGTH_LONG).show();
+                    }
                     //Toast.makeText(this,getString(R.string.correct),Toast.LENGTH_LONG).show();
 
                 }else{ //wrong
                     bgImge.setImageResource(R.drawable.incorrect);
                     bgImge.setAlpha(1.0f);
                     bgImge.setAnimation(animation);
+                    //RadioButton radio = (RadioButton) findViewById(R.id.questionScreen).findViewById(opts[opt]);
+                    //radio.setChecked(true);
+
+
                     //Toast.makeText(this,getString(R.string.wrong),Toast.LENGTH_LONG).show();
 
                 }
