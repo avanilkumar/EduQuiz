@@ -6,7 +6,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.android.proj.MainActivity"
     tools:showIn="@layout/app_bar_main"
-
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     >
@@ -26,6 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
+            android:textSize="20sp"
+            android:textColor="@color/colorItem"
             android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -35,24 +36,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
+                android:textSize="18sp"
+                android:textColor="@color/colorItem"
                 android:id="@+id/op1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <RadioButton
+                android:textSize="18sp"
+                android:textColor="@color/colorItem"
                 android:id="@+id/op2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <RadioButton
+                android:textSize="18sp"
+                android:textColor="@color/colorItem"
                 android:id="@+id/op3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <RadioButton
+                android:textSize="18sp"
+                android:textColor="@color/colorItem"
                 android:id="@+id/op4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </RadioGroup>
 
         <Button
+            android:textColor="@android:color/white"
             android:layout_margin="12dp"
             android:onClick="onOkNxt"
             android:id="@+id/okNxt"
@@ -61,10 +71,12 @@
             android:layout_gravity="center_horizontal"/>
 
         <View
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorItem"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <TextView
+            android:textSize="20sp"
+            android:textColor="@color/colorItem"
             android:layout_margin="12dp"
             android:id="@+id/answer"
             android:layout_width="match_parent"
