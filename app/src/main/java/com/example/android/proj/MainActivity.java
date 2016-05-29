@@ -418,6 +418,17 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void onDone(){
+        Intent intent = new Intent(this,score.class);
+        intent.putExtra("subject",mSubjectStr);
+        intent.putExtra("score",mCurScore);
+        intent.putExtra("total",mCurQuestion+1);
+        startActivity(intent);
+        mCurQuestion = 0;
+        mCurScore = 0;
+        setQuestionScreen();
+        ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
+    }
     public void onOkNxt(View view) {
         Button b = (Button)view;
             String str = mData.getAnswer(mSubjectStr,mCurQuestion);
@@ -445,8 +456,9 @@ public class MainActivity extends AppCompatActivity
                         setQuestionScreen();
 
                     }else{//last question
-                        b.setText(getString(R.string.RESET));
-                        Toast.makeText(this,getString(R.string.done), Toast.LENGTH_LONG).show();
+                        onDone();
+                        //b.setText(getString(R.string.RESET));
+                        //Toast.makeText(this,getString(R.string.done), Toast.LENGTH_LONG).show();
                     }
                     //Toast.makeText(this,getString(R.string.correct),Toast.LENGTH_LONG).show();
 
@@ -464,15 +476,16 @@ public class MainActivity extends AppCompatActivity
                     setQuestionScreen();
                     ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
                 }else{//last question
-                    b.setText(getString(R.string.RESET));
-                    Toast.makeText(this,getString(R.string.done), Toast.LENGTH_LONG).show();
+                    onDone();
+                    //b.setText(getString(R.string.RESET));
+                    //Toast.makeText(this,getString(R.string.done), Toast.LENGTH_LONG).show();
                 }
            }else{//reset
                // Toast.makeText(this,"score: "+mCurScore,Toast.LENGTH_LONG).show();
-                mCurQuestion = 0;
-                mCurScore = 0;
-                setQuestionScreen();
-                ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
+               // mCurQuestion = 0;
+                //mCurScore = 0;
+                //setQuestionScreen();
+                //((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
             }
     }
 
