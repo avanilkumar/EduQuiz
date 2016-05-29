@@ -449,7 +449,7 @@ public class MainActivity extends AppCompatActivity
                     //radio.setChecked(true);
 
 
-                    //Toast.makeText(this,getString(R.string.wrong),Toast.LENGTH_LONG).show();
+
 
                 }
             }else if(b.getText().toString().equals(getString(R.string.Next))){//next
