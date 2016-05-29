@@ -50,20 +50,21 @@ public class MainActivity extends AppCompatActivity
     /****************************************
      * file content stored in this variable
      ***************************************/
-    private String mQuizStr;
+    //private String mQuizStr;
 
     /***************************************************
      * Subject String and question screen related params
      * JSON object params
      ***************************************************/
     private String mSubjectStr;
-    private int mSubjectLen;
+    //private int mSubjectLen;
     private int mCurQuestion;
-    public String mCurHint;
-    private String mCurAnswer;
-    private int mCurOpt;
-    private String mTeacher;
-    private String mFeedback;
+    //public String mCurHint;
+    //private String mCurAnswer;
+    //private int mCurOpt;
+    //private String mTeacher;
+    //private String mFeedback;
+    private JSONReader mData = new JSONReader();
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -80,9 +81,10 @@ public class MainActivity extends AppCompatActivity
             InputStream inputStream = getAssets().open(getString(R.string.default_quiz));
             byte[] buffer = new byte[inputStream.available()];
             inputStream.read(buffer);
-            mQuizStr = new String(buffer, "UTF-8");
+            //mQuizStr = new String(buffer, "UTF-8");
             mCurQuestion = 0;
             mSubjectStr = "";
+            mData.loadString(new String(buffer, "UTF-8"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,93 +101,91 @@ public class MainActivity extends AppCompatActivity
         if (t != null) {
             t.setText("");
         }
-        mTeacher = mFeedback = "";
+        //mTeacher = mFeedback = "";
 
         t = (TextView) navigationView.getHeaderView(0).findViewById(R.id.email);
         if (t != null) {
             t.setText("");
         }
 
-        try {
-            JSONObject object = new JSONObject(mQuizStr);
-            String str = object.getString(getString(R.string.Teacher));
-            if (str != null) {
-                ((TextView) navigationView.getHeaderView(0).findViewById(R.id.teacher)).setText(str);
-                mTeacher = str;
-            }
-            str = object.getString(getString(R.string.Email));
-            if (str != null) {
-                ((TextView) navigationView.getHeaderView(0).findViewById(R.id.email)).setText(str);
-                mFeedback = str;
-            }
+        // JSONObject object = new JSONObject(mQuizStr);
+        //String str = object.getString(getString(R.string.Teacher));
+        //if (str != null) {
+        ((TextView) navigationView.getHeaderView(0).findViewById(R.id.teacher)).setText(mData.getName());
+        //     mTeacher = str;
+        //}
+        //str = object.getString(getString(R.string.Email));
+        //if (str != null) {
+        ((TextView) navigationView.getHeaderView(0).findViewById(R.id.email)).setText(mData.getEmail());
+        //mFeedback = str;
+        //}
 
 
-            JSONArray array = object.getJSONArray(getString(R.string.Subjects));
-            int cnt = array.length();
-            for (int i = 0; i < cnt; ++i) {
-                str = array.getString(i);
-                if (str != null) {
-                    MenuItem item = sub.add(R.id.SubjectGroup,i+1,i,str);
+        //JSONArray array = object.getJSONArray(getString(R.string.Subjects));
+        //int cnt = array.length();
+        int cnt = mData.getSubjects().length;
+        for (int i = 0; i < cnt; ++i) {
+            //str = array.getString(i);
+            //if (str != null) {
+                MenuItem item = sub.add(R.id.SubjectGroup,i+1,i,mData.getSubjects()[i]);
 
-                    if (i == 0 && (mSubjectStr==null || mSubjectStr.isEmpty())) {
-                        mSubjectStr = str;
+               // if (i == 0 && (mSubjectStr==null || mSubjectStr.isEmpty())) {
+              //      mSubjectStr = str;
 
-                    }
-                }
-            }
-
-
-            sub.setGroupCheckable(R.id.SubjectGroup,true,true);
-
-           sub = navigationView.getMenu().addSubMenu("Communication");
-            sub.add("Feedback").setIcon(R.drawable.ic_menu_send);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+                //}
+            //}
         }
+
+
+        sub.setGroupCheckable(R.id.SubjectGroup,true,true);
+
+        sub = navigationView.getMenu().addSubMenu("Communication");
+        sub.add("Feedback").setIcon(R.drawable.ic_menu_send);
+
+
     }
 
     public void setQuestionScreen() {
-        try {
-            JSONObject object = new JSONObject(mQuizStr);
-            JSONArray array = object.getJSONArray(mSubjectStr);
-            ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText("");
-            mSubjectLen = array.length();
-            findViewById(R.id.bgimage).setAlpha(0.0f);
-            if(mCurQuestion < array.length()){
-                String str;
-                JSONObject curObject;
-                curObject =array.getJSONObject(mCurQuestion);
+        // JSONObject object = new JSONObject(mQuizStr);
+        //JSONArray array = object.getJSONArray(mSubjectStr);
+        ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText("");
+        //mSubjectLen = array.length();
+        findViewById(R.id.bgimage).setAlpha(0.0f);
+        if(mCurQuestion < mData.getQuestionCnt(mSubjectStr)){
+            String str;
+            //JSONObject curObject;
+            //curObject =array.getJSONObject(mCurQuestion);
 
 
-                if(curObject!=null){
-                    mCurAnswer = curObject.getString(getString(R.string.Answer));
-                    mCurHint = curObject.getString(getString(R.string.Hint));
-                    mCurOpt = curObject.getInt(getString(R.string.Opt));
-                    str = curObject.getString(getString(R.string.Question));
-                    ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.question)).setText(str);
+            //if(curObject!=null){
+                //mCurAnswer = curObject.getString(getString(R.string.Answer));
+                //mCurHint = curObject.getString(getString(R.string.Hint));
+                //mCurOpt = curObject.getInt(getString(R.string.Opt));
+                //str = curObject.getString(getString(R.string.Question));
+                str = mData.getQuestion(mSubjectStr,mCurQuestion);
+                ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.question)).setText(str);
 
-                    ((RadioGroup)findViewById(R.id.questionScreen).findViewById(R.id.options)).clearCheck();
+                ((RadioGroup)findViewById(R.id.questionScreen).findViewById(R.id.options)).clearCheck();
 
-                    str = curObject.getString(getString(R.string.Opt0));
-                    ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op1)).setText(str);
+                //str = curObject.getString(getString(R.string.Opt0));
+                str = mData.getOption(mSubjectStr,mCurQuestion,0);
+                ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op1)).setText(str);
 
-                    str = curObject.getString(getString(R.string.Opt1));
-                    ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op2)).setText(str);
+                //str = curObject.getString(getString(R.string.Opt1));
+                str = mData.getOption(mSubjectStr,mCurQuestion,1);
+                ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op2)).setText(str);
 
-                    str = curObject.getString(getString(R.string.Opt2));
-                    ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op3)).setText(str);
+                //str = curObject.getString(getString(R.string.Opt2));
+                str = mData.getOption(mSubjectStr,mCurQuestion,2);
+                ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op3)).setText(str);
 
-                    str = curObject.getString(getString(R.string.Opt3));
-                    ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op4)).setText(str);
+              //  str = curObject.getString(getString(R.string.Opt3));
+                str = mData.getOption(mSubjectStr,mCurQuestion,3);
+                ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op4)).setText(str);
 
 
-                   findViewById(R.id.bgimage).setAlpha(0.0f);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+               findViewById(R.id.bgimage).setAlpha(0.0f);
+            //}
         }
     }
 
@@ -200,7 +200,10 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String str = ((MainActivity)view.getContext()).mCurHint;
+                //String str = ((MainActivity)view.getContext()).mCurHint;
+                int qNum = ((MainActivity)view.getContext()).mCurQuestion;
+                String sub = ((MainActivity)view.getContext()).mSubjectStr;
+                String str = ((MainActivity)view.getContext()).mData.getHint(sub,qNum);
                 if(str==null)str="";
                 Snackbar.make(view, str, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -220,14 +223,17 @@ public class MainActivity extends AppCompatActivity
         if(savedInstanceState==null){
             mCurQuestion=0;
             defaultQuizLoad();
+            mSubjectStr = mData.getSubjects()[0];
             ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
         }else{
             mCurQuestion = savedInstanceState.getInt("questionNum");//outState.putInt("questionNum",mCurQuestion);
-            mCurOpt = savedInstanceState.getInt(getString(R.string.Opt));//outState.putInt(getString(R.string.Opt),mCurOpt);
-            mQuizStr = savedInstanceState.getString("file");//outState.putString("file",mQuizStr);
+            //mCurOpt = savedInstanceState.getInt(getString(R.string.Opt));//outState.putInt(getString(R.string.Opt),mCurOpt);
+            //mQuizStr = savedInstanceState.getString("file");//outState.putString("file",mQuizStr);
             mSubjectStr = savedInstanceState.getString("subject");//outState.putString("subject",mSubjectStr);
             String str = savedInstanceState.getString("okNxtButton");
             ((Button)findViewById(R.id.okNxt)).setText(str);
+            mData = new JSONReader();
+            mData.loadBundle(savedInstanceState.getBundle("dat"));
         }
 
         updateNavigationMenu();
@@ -266,19 +272,17 @@ public class MainActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 String FilePath = data.getData().getPath();
                 if(FilePath!=null && !FilePath.isEmpty()){
-                    try {
-                        FileInputStream fis = new FileInputStream(FilePath);
-                        byte[] buffer = new byte[fis.available()];
-                        fis.read(buffer);
-                        mQuizStr = new String(buffer, "UTF-8");
-                        mCurQuestion = 0;
-                        mSubjectStr = "";
-                        ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText("OK");
-                        updateNavigationMenu();
-                        setQuestionScreen();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //FileInputStream fis = new FileInputStream(FilePath);
+                    //byte[] buffer = new byte[fis.available()];
+                    //fis.read(buffer);
+                    //mQuizStr = new String(buffer, "UTF-8");
+                    mData = new JSONReader();
+                    mData.loadFile(FilePath);
+                    mCurQuestion = 0;
+                    mSubjectStr = mData.getSubjects()[0];
+                    ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText("OK");
+                    updateNavigationMenu();
+                    setQuestionScreen();
                 }
 
                 //FilePath is your file as a string
@@ -326,9 +330,9 @@ public class MainActivity extends AppCompatActivity
 
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("message/rfc822");
-            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{mFeedback});
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{mData.getEmail()});
             i.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-            i.putExtra(Intent.EXTRA_TEXT   , "Dear "+mTeacher);
+            i.putExtra(Intent.EXTRA_TEXT   , "Dear "+mData.getName());
             try {
                 startActivity(Intent.createChooser(i, "Send mail..."));
             } catch (android.content.ActivityNotFoundException ex) {
@@ -392,19 +396,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(getString(R.string.Opt),mCurOpt);
-        outState.putString("file",mQuizStr);
+        //outState.putInt(getString(R.string.Opt),mCurOpt);
+        //outState.putString("file",mQuizStr);
         outState.putString("subject",mSubjectStr);
         String str = new String(((Button)findViewById(R.id.okNxt)).getText().toString());
         outState.putString("okNxtButton",str);
         outState.putInt("questionNum",mCurQuestion);
+        Bundle dat = mData.createBundle();
+        outState.putBundle("dat",dat);
 
     }
 
     public void onOkNxt(View view) {
         Button b = (Button)view;
-
-            ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText(mCurAnswer);
+            String str = mData.getAnswer(mSubjectStr,mCurQuestion);
+            ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText(str);
 
             if(b.getText().toString().equals(getText(R.string.ok))){
 
@@ -417,7 +423,8 @@ public class MainActivity extends AppCompatActivity
                 animation.setInterpolator(new LinearInterpolator());
 
                 b.setText(getString(R.string.Next));
-                if(opts[mCurOpt]==id){//correct
+                int opt = mData.getAnswerOpt(mSubjectStr,mCurQuestion);
+                if(opts[opt]==id){//correct
                     bgImge.setImageResource(R.drawable.correct);
                     bgImge.setAlpha(1.0f);
                     bgImge.setAnimation(animation);
@@ -432,7 +439,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }else if(b.getText().toString().equals(getString(R.string.Next))){//next
 
-                if(mCurQuestion+1 < mSubjectLen){
+                if(mCurQuestion+1 < mData.getQuestionCnt(mSubjectStr)){
                     mCurQuestion++;
                     setQuestionScreen();
                     ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
