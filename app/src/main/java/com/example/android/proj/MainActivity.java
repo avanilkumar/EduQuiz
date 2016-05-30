@@ -3,11 +3,13 @@ package com.example.android.proj;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity
     private String mSubjectStr;
     private int mCurQuestion;
     private int mCurScore;
+    private int mGreenId=-1;
+    private int mRedId=-1;
 
     private JSONReader mData = new JSONReader();
 
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity
             byte[] buffer = new byte[inputStream.available()];
             inputStream.read(buffer);
             mCurQuestion = 0;
+            mRedId = mGreenId = -1;
             mCurScore = 0;
             mSubjectStr = "";
             mData.loadString(new String(buffer, "UTF-8"));
@@ -118,7 +123,27 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void wrongOptColor(){
+        if(mGreenId>=0){
+            ((RadioButton)findViewById(R.id.questionScreen).findViewById(mGreenId)).setTextColor(Color.GREEN);
+        }
+        if(mRedId>=0){
+            ((RadioButton)findViewById(R.id.questionScreen).findViewById(mRedId)).setTextColor(Color.RED);
+        }
+    }
+
+    public void correctOptColor(){
+        int cur = ContextCompat.getColor(this,R.color.colorItem);
+        
+        ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op1)).setTextColor(cur);
+        ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op2)).setTextColor(cur);
+        ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op3)).setTextColor(cur);
+        ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op4)).setTextColor(cur);
+    }
     public void setQuestionScreen() {
+        if(mRedId==-1 && mGreenId==-1){
+            correctOptColor();
+        }
          ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText("");
         findViewById(R.id.bgimage).setAlpha(0.0f);
         if(mCurQuestion < mData.getQuestionCnt(mSubjectStr)){
@@ -176,6 +201,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setBackgroundResource(R.drawable.bgimage);
 
         if(savedInstanceState==null){
+            mRedId = mGreenId = -1;
             mCurScore = 0;
             mCurQuestion=0;
             defaultQuizLoad();
@@ -187,7 +213,10 @@ public class MainActivity extends AppCompatActivity
             mSubjectStr = savedInstanceState.getString("subject");
             String str = savedInstanceState.getString("okNxtButton");
             ((Button)findViewById(R.id.okNxt)).setText(str);
+            mGreenId = savedInstanceState.getInt("green");
+            mRedId = savedInstanceState.getInt("red");
             if(str.equals(getString(R.string.Next))){
+
                 ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText(mData.getAnswer(mSubjectStr,mCurQuestion));
             }
             mData = new JSONReader();
@@ -196,6 +225,10 @@ public class MainActivity extends AppCompatActivity
 
         updateNavigationMenu();
         setQuestionScreen();
+
+        if(mGreenId>=0 || mRedId>=0){
+            wrongOptColor();
+        }
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -234,6 +267,7 @@ public class MainActivity extends AppCompatActivity
                     mData.loadFile(FilePath);
                     mCurQuestion = 0;
                     mCurScore = 0;
+                    mRedId = mGreenId = -1;
                     mSubjectStr = mData.getSubjects()[0];
                     ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText("OK");
                     updateNavigationMenu();
@@ -261,6 +295,7 @@ public class MainActivity extends AppCompatActivity
             ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText("OK");
             mCurQuestion = 0;
             mCurScore = 0;
+            mRedId = mGreenId = -1;
             setQuestionScreen();
             return true;
         }else if(id == R.id.open){
@@ -299,6 +334,7 @@ public class MainActivity extends AppCompatActivity
             mSubjectStr = item.getTitle().toString();
             mCurQuestion = 0;
             mCurScore = 0;
+            mRedId = mGreenId = -1;
             ((Button) findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getString(R.string.ok));
             setQuestionScreen();
 
@@ -360,6 +396,8 @@ public class MainActivity extends AppCompatActivity
         outState.putInt("curScore",mCurScore);
         Bundle dat = mData.createBundle();
         outState.putBundle("dat",dat);
+        outState.putInt("green",mGreenId);
+        outState.putInt("red",mRedId);
 
     }
 
@@ -371,6 +409,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
         mCurQuestion = 0;
         mCurScore = 0;
+        mRedId = mGreenId = -1;
         setQuestionScreen();
         ((Button)findViewById(R.id.questionScreen).findViewById(R.id.okNxt)).setText(getText(R.string.ok));
     }
@@ -379,8 +418,10 @@ public class MainActivity extends AppCompatActivity
             String str = mData.getAnswer(mSubjectStr,mCurQuestion);
             ((TextView)findViewById(R.id.questionScreen).findViewById(R.id.answer)).setText(str);
 
+
             if(b.getText().toString().equals(getText(R.string.ok))){
 
+                mRedId = mGreenId = -1;
                 int[] opts = new int[]{R.id.op1,R.id.op2,R.id.op3,R.id.op4};
                 int id = ((RadioGroup)findViewById(R.id.questionScreen).findViewById(R.id.options)).getCheckedRadioButtonId();
                 ImageView bgImge = (ImageView) findViewById(R.id.bgimage);
@@ -389,13 +430,13 @@ public class MainActivity extends AppCompatActivity
                 animation.setDuration(2500);
                 animation.setInterpolator(new LinearInterpolator());
 
-                b.setText(getString(R.string.Next));
+
                 int opt = mData.getAnswerOpt(mSubjectStr,mCurQuestion);
                 if(opts[opt]==id){//correct
                     mCurScore++;
-                    bgImge.setImageResource(R.drawable.correct);
-                    bgImge.setAlpha(1.0f);
-                    bgImge.setAnimation(animation);
+                    //bgImge.setImageResource(R.drawable.correct);
+                    //bgImge.setAlpha(1.0f);
+                    //bgImge.setAnimation(animation);
                     if(mCurQuestion+1 < mData.getQuestionCnt(mSubjectStr)){
                         mCurQuestion++;
                         setQuestionScreen();
@@ -405,11 +446,22 @@ public class MainActivity extends AppCompatActivity
                     }
 
                 }else{ //wrong
-                    bgImge.setImageResource(R.drawable.incorrect);
-                    bgImge.setAlpha(1.0f);
-                    bgImge.setAnimation(animation);
+                    //int cur = getResources().getColor(R.color.colorItem);
+                    //int cur = ContextCompat.getColor(this,R.color.colorItem);
+                    b.setText(getString(R.string.Next));
+                    if(id>=0){
+                        mRedId = id;
+                    }
+                    mGreenId = opts[opt];
+                    wrongOptColor();
+
+                    //bgImge.setImageResource(R.drawable.incorrect);
+                    //bgImge.setAlpha(1.0f);
+                    //bgImge.setAnimation(animation);
                 }
             }else if(b.getText().toString().equals(getString(R.string.Next))){//next
+               // ((RadioButton)findViewById(R.id.questionScreen).findViewById(R.id.op1)).setTextColor();
+                mRedId = mGreenId = -1;
 
                 if(mCurQuestion+1 < mData.getQuestionCnt(mSubjectStr)){
                     mCurQuestion++;
